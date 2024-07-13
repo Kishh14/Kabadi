@@ -5,19 +5,19 @@ import Features from "./Features/Features";
 import "./LandingPage.css";
 import Connect from "./Connect/Connect";
 import About from "./About/About";
-import Footer from './Footer/Footer'
+import Footer from "./Footer/Footer";
 import Header from "./Header/Header";
 
 const LandingPage = () => {
   return (
     <div className="w-full h-screen overflow-hidden  bg-black background">
       <div className="mx-auto h-full overflow-y-scroll no-scrollbar ">
-        <Header/>
-        <Hero  />
+        <Header />
+        <Hero />
         <Features />
         <Connect />
         <About />
-        <Footer/>
+        <Footer />
       </div>
     </div>
   );
