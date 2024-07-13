@@ -2,7 +2,7 @@ import React from "react";
 import "./Hero.css";
 import L1 from "../../../assets/L1.png";
 import Vector from "../../../assets/3d.png";
-import Start from "../../../assets/Start.png";
+// import Start from "../../../assets/Start.png";
 import { useNavigate } from "react-router-dom";
 import heroImg from "../../../assets/hero-image.png";
 import { useSelector } from "react-redux";
@@ -15,24 +15,18 @@ const Hero = () => {
   return (
     <div className="flex h-[80vh] main-div justify-between bg-image">
       <div className="left-div m-4 w-1/2 flex flex-col justify-center">
-        <div className=" inner-div w-2/3  mt-3 bg-gray-700 flex items-center rounded">
-          <img src={L1} alt="image" className="h-12 w-12" />
-          <p className="text-white text-xl">
-            Use the power of AI in content creation
-          </p>
-        </div>
-        <div className="mt-4 h-auto flex items-center">
-          <p className="text-white text-5xl ">
-            The Next <span className="text-sky-500">Generation</span> Social
-            Media
-          </p>
+      
+      <div className="mt-4 h-auto flex items-center">
+  <p className="text-white text-2xl sm:text-3xl md:text-4xl">
+    Dive into the World of <span className="text-[#6556cd]">Kabaddi</span> with Pick Local Rag
+  </p>
 
-          <img
+          {/* <img
             src={Start}
             alt=""
             className="h-40 w-40 mt-5 para cursor-pointer"
             onClick={() => navigate("/authentication")}
-          />
+          /> */}
 
           {/* {!user.details._id ? (
             <img
@@ -50,14 +44,14 @@ const Hero = () => {
             />
           )} */}
         </div>
-        <p className="text-white p-1 m-1 mt-5 w-3/4">
-          Tired of the same old social media routine? Introducing a
-          revolutionary platform that uses the power of AI to enhance your
-          creativity and social experience.
+        <p className="text-gray-300 p-1 m-1 mt-5 w-3/4">
+        Got it! Here’s a sentence for your Pick Local Rag website:
+"Tired of the same old sports coverage? Discover a revolutionary platform dedicated to Kabaddi that brings you closer to the action and community like never before. Join Pick Local Rag today!"
         </p>
       </div>
       <div className="p-2 m-4 w-1/2 flex  justify-center">
-        <img src={Vector} alt="" className="" />
+        <img src={Vector} alt="" className="" /> 
+        {/* 3d model yaha hai na bhai */}
       </div>
     </div>
   );

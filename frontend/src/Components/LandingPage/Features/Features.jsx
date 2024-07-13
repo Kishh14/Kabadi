@@ -2,85 +2,53 @@ import React from "react";
 import "./Features.css";
 
 const Features = () => {
+  const wasteData = [
+    {
+      image: "https://e7.pngegg.com/pngimages/689/23/png-clipart-newspaper-coupon-burlington-recycling-paper-pile-cardboard-recycling.png",
+      name: "Papers",
+      desc: "(cardboard, newspapers)",
+      price: "₹1 - ₹5",
+    },
+    {
+     image :"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-0hWg7C4My37R4jZHp8P02qB9WrccbaNCjg&s",
+      name: "Plastic Bottles",
+      desc: "(PET, HDPE, PVC)",
+      price: "₹5 - ₹15",
+    },
+    {
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbq-mp62Tt6bY3fLuUv_7041jmNMUuFq6kQQ&s",
+      name: "Metal Cans",
+      desc: "(aluminium, steel)",
+      price: "₹10 - ₹20",
+    },
+    {
+    image :"data:image/jpeg;base64,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lsSJCR+016ZHo2osWjBxLPsg889SA96oJ7Gn8x4L2mu9c8hHvXKK2rJJ4knzXlieSt2uaTB13LTUutUSaGV6PeajdOw9G20KFStUqtwB7Q2mWiQXA5kgnwWcUmrkbFU0568C6XFs7ZrI2KFMNJ1cZc89rjn3aLM0qKW4lUPQgCAIAgCAIAgCAIAgOa8aZdSqNGpY4DtwmEPU7O5/Ne0Bl7u1eJWN83fUjbkfFrsx4Wiz/wDM1emifhZatpWHnHzIIxeX68wvSJBaFfDl6Zn01AfYK8Z4XPk+osdWY5x9g5D6xMeGi1ylKLsuJpqTlGSSW8zSm5ZrcWKJOwe0F4zZG99D+h9h6bhY6WLUye4leR3GNbx6k8sjUEAQBAEAQBAEAQBAEAQBAYhyo7LPo1HVmtPNPMhwGQJPsO4GdOPp41xRujNNWZntkYWVqZMSKlMjhIeJHbCGMtxaNo5c8kjMSPAle31IMWQQaZhZXM7nUy76kStbrRNbrQOYjNZ3Nly57AAh5IEkAkeGvdr3LXJ6pGmo+8kZrZW5DsHosrlnlLlsVs/UtVZrQDAguO4N4ngF5ZszTUdWf0NZ6IY1rG6NAA7AIWSViPJtu7PRDwIAgCAIAgCAIAgCAIAgCA+alMOBa4AgiCCJBHAjegKbenJhd9V4e1j6LgWu+aeQwlpkSwy2OyEFyg7QWYc44niTCjuTTsipzNOyIanRGsRwj4rCU3uNVSrLce8Dr8Ssbs05pHJWo5+yD26+IWcZslU6rtqy7bGWVowuZPSIb2YnALGEnKrZ8DyEpTrqL4akvdvJDYaZ6dS0Veoua1v3Gg+amF1mZd7tu2jZ2YKNNtNvBoiTxJ1J6yhjc60AQBAEAQBAEAQBAEAQBAEAQBAEBi+0Y+cI4F09oJUeas2ypqqzZAuK0kNn40iV42eH1OcLJI2xRcdi3w4NG97CO0uE+i2QXfTJNGN6iZqiklqEAQBAEAQBAEAQBAEAQBAEAQBAEAQGVbfXY6jWxAdF5Jb8W9o9IWqpHiV+Jpa3RTnqK3YrJaH1SpCVhmMMx6to5rOMjdCV9xoGwF1y7nDozfuxEZAdgJKk0otasscJTd8zL+txPCAIAgCAIAgCAIAgCAIAgCAIAgCAIDkvO7qVopmnVaHNPiCNHA7iOKHjSe8zq9uTqu0k2d7KrdzXnA8dUjontyWuVKLIlTCRluIpmx14zHyeOvnKRHqsPy8TQsCifuTk9qSHWmoAPqsOJx6i4iB3AraoRW4kww0YmgWSzMpsDGNDWjQD9ZrIkpWPZD0IAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCA/9k=",
+      name: "Glass Bottles",
+      desc: "(clear, colored)",
+      price: "₹2 - ₹5",
+    },
+  ];
   return (
-    <div className="p-4 flex flex-col  justify-center items-center overflow-hidden BGImage mt-[210px]">
-      <p className="text-white text-3xl text-center mb-5">
-        Wanna know, what makes us stand apart?
-      </p>
-      <div className="flex gap-2 mt-[50px]  min-h-[50h] media">
-        <div className="card min-w-[190px] h-[500px] justify-center items-center rounded-[24px]">
-          <h3
-            className="txt font-semibold sm:text-[26px] text-[18px] text-white absolute z-0 lg:bottom-20 lg:rotate-[-90deg] lg:origin-[0,0] mb-5 "
-            style={{ whiteSpace: "nowrap" }}
-          >
-            Image Generation
-          </h3>
-
-          <div className="hide absolute bottom-0 p-8 flex  justify-start w-full flex-col bg-[rgba(0,0,0,0.5)] rounded-b-[24px] glassmorphism">
-            <h2 className="m-3 font-eudoxus font-semibold sm:text-[32px] text-[24px] text-white">
-              Image Generation
-            </h2>
+    <div className="p-4 flex flex-col justify-center items-center overflow-hidden BGImage mt-20">
+    <p className="text-white text-3xl text-center mb-5 font-semibold">What We Take?</p>
+  
+    <div className="container mx-auto px-4 lg:px-0">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {wasteData.map((item, index) => (
+          <div key={index} className="bg-[#1f1e24] p-4 rounded-lg shadow-md flex flex-col items-center">
+            <img className="h-40 w-40 object-cover mb-4 rounded-lg" src={item.image} alt={item.name} />
+            <h3 className="text-lg text-[#6556cd] font-semibold">{item.name}</h3>
+            <p className="text-gray-200 text-sm mb-2">{item.desc}</p>
+            <p className="text-green-500 font-semibold">{item.price}</p>
           </div>
-        </div>
-        <div className="card min-w-[190px] h-[500px] justify-center items-center rounded-[24px]">
-          <h3
-            className="txt font-semibold sm:text-[26px] text-[18px] text-white absolute z-0 lg:bottom-20 lg:rotate-[-90deg] lg:origin-[0,0] mb-5"
-            style={{ whiteSpace: "nowrap" }}
-          >
-            Video Generation
-          </h3>
-
-          <div className="hide absolute bottom-0 p-8 flex justify-start w-full flex-col bg-[rgba(0,0,0,0.5)] rounded-b-[24px] glassmorphism">
-            <h2 className="m-3 font-eudoxus font-semibold sm:text-[32px] text-[24px] text-white">
-              Video Generation
-            </h2>
-          </div>
-        </div>
-        <div className="card min-w-[190px] h-[500px] justify-center items-center rounded-[24px]">
-          <h3
-            className="txt font-semibold sm:text-[26px] text-[18px] text-white absolute z-0 lg:bottom-20 lg:rotate-[-90deg] lg:origin-[0,0] mb-5"
-            style={{ whiteSpace: "nowrap" }}
-          >
-            Caption Generation
-          </h3>
-
-          <div className="hide absolute bottom-0 p-8 flex justify-start w-full flex-col bg-[rgba(0,0,0,0.5)] rounded-b-[24px] glassmorphism">
-            <h2 className="m-3 font-eudoxus font-semibold sm:text-[32px] text-[24px] text-white">
-              Caption Generation
-            </h2>
-          </div>
-        </div>
-        <div className="card min-w-[190px] h-[500px] justify-center items-center rounded-[24px]">
-          <h3
-            className=" txt font-semibold sm:text-[26px] text-[18px] text-white absolute z-0 lg:bottom-20 lg:rotate-[-90deg] lg:origin-[0,0] mb-5"
-            style={{ whiteSpace: "nowrap" }}
-          >
-            Meme Generation
-          </h3>
-
-          <div className="hide absolute bottom-0 p-8 flex justify-start w-full flex-col bg-[rgba(0,0,0,0.5)] rounded-b-[24px] glassmorphism">
-            <h2 className="m-3 font-eudoxus font-semibold sm:text-[32px] text-[24px] text-white">
-              Meme Generation
-            </h2>
-          </div>
-        </div>
-        <div className="card min-w-[190px] h-[500px] justify-center items-center rounded-[24px]">
-          <h3
-            className="txt font-semibold sm:text-[26px] text-[18px] text-white absolute z-0 lg:bottom-20 lg:rotate-[-90deg] lg:origin-[0,0] mb-5"
-            style={{ whiteSpace: "nowrap" }}
-          >
-            And many more...
-          </h3>
-
-          <div className="hide absolute bottom-0 p-8 flex justify-start w-full flex-col bg-[rgba(0,0,0,0.5)] rounded-b-[24px] glassmorphism">
-            <h2 className="m-3 font-eudoxus font-semibold sm:text-[32px] text-[24px] text-white">
-              And many more...
-            </h2>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
+  </div>
+  
   );
 };
 
 export default Features;
+
+  

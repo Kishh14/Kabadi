@@ -1,5 +1,5 @@
 .BGImage {
-  background: radial-gradient(
+  /* background: radial-gradient(
         at 0% 50%,
         rgb(168, 96, 176) 10px,
         rgb(117, 160, 153) 10%,
@@ -7,7 +7,7 @@
         #07070700 60%
       )
       0 0 / 20% 90% no-repeat,
-    linear-gradient(to right, #070707 0%, transparent 0%);
+    linear-gradient(to right, #070707 0%, transparent 0%); */
 
     /* background: linear-gradient(135deg, #000000, #555555); */
   margin-top: 30px;

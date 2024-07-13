@@ -1,5 +1,5 @@
 .bg-image {
-  background: radial-gradient(at 100% 10%, rgb(13, 78, 139), #070707 50%);
+  /* background: radial-gradient(at 100% 10%, rgb(13, 78, 139), #070707 50%); */
   padding-top: 20px;
   padding-left: 10px;
 }

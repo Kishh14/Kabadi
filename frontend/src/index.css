@@ -14,9 +14,9 @@
   background-position: center;
 }
 
-.glass-effect {
+/* .glass-effect {
   backdrop-filter: blur(45px) !important;
-}
+} */
 
 body::-webkit-scrollbar {
   display: none;
