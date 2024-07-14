@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { MdPlace } from "react-icons/md";
 import { AiTwotonePhone } from "react-icons/ai";
 import { BsPersonCircle } from "react-icons/bs";
@@ -14,6 +14,7 @@ function OrderCard({
   customerName,
   customerPhone,
   customerAddress,
+  acceptOrder,
 }) {
   return (
     <div
@@ -73,7 +74,10 @@ function OrderCard({
       <div className="p-2 shadow bg-gray-800 rounded mt-3"></div>
       {status !== "Completed" ? (
         <div className="flex justify-center gap-4 my-3">
-          <button className="btn text-white border-1 pb-2 border-green-900 hover:bg-green-900 px-3">
+          <button
+            onClick={acceptOrder}
+            className="btn text-white border-1 pb-2 border-green-900 hover:bg-green-900 px-3"
+          >
             Accept
           </button>
           <button className="btn text-white border-1 pb-2 border-red-900 hover:bg-red-900 px-3">
@@ -84,7 +88,11 @@ function OrderCard({
         <div className="flex justify-center gap-4 my-3">
           <p className="">
             Collected 5kg for
-            <span className="border-b font-bold border-green-500"> ₹400</span> 💵
+            <span className="border-b font-bold border-green-500">
+              {" "}
+              ₹400
+            </span>{" "}
+            💵
           </p>
         </div>
       )}

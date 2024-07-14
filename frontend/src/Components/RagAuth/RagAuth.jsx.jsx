@@ -1,23 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login_success } from "../../Redux/userSlice";
 import Header from "../LandingPage/Header/Header";
+import { account, databases, ID } from "../../../Appwrite";
+import { ContextStore } from "../../ContextStore";
 
-const Authentication = ({
-  userName,
-  setUserName,
-  userPhone,
-  setUserPhone,
-  daysAvailable,
-  setDaysAvailable,
-  timeAvailable,
-  setTimeAvailable,
-  userLocation,
-  setUserLocation,
-}) => {
+const RagAuth = () => {
   const [login, setLogin] = useState(false);
   const [registerUser, setRegisterUser] = useState({
     username: "",
@@ -29,7 +20,11 @@ const Authentication = ({
   const [buttonActive, setButtonActive] = useState(true);
   const [image, setImage] = useState();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+
+  const { phoneNumber, daysAvailable, userLocation, currentUserID } =
+    useContext(ContextStore);
+  let email = String(registerUser.email);
+  let name = String(registerUser.username);
 
   useEffect(() => {
     fetchImage();
@@ -38,18 +33,23 @@ const Authentication = ({
   const handleLogin = async (e) => {
     e.preventDefault();
     setButtonActive(false);
+
     try {
-      const resp = await axios.post(
-        `${import.meta.env.VITE_API_AUTH_URL}/login`,
-        loginUser
+      const promise = account.createEmailPasswordSession(
+        loginUser.email,
+        loginUser.password
       );
-      toast.success(resp.data.message);
-      dispatch(
-        login_success({ token: resp.data.token, details: resp.data.user })
+
+      promise.then(
+        function (response) {
+          console.log(response);
+          toast.success("Logged In");
+          navigate("/ragPickerCentral");
+        },
+        function (error) {
+          console.log(error); // Failure
+        }
       );
-      navigate("/");
-      sessionStorage.setItem("username", resp.data.user.username);
-      sessionStorage.setItem("email", resp.data.user.email);
     } catch (error) {
       console.log(error);
       setButtonActive(true);
@@ -61,19 +61,56 @@ const Authentication = ({
 
   const handleRegister = async (e) => {
     e.preventDefault();
+
+    let data = {
+      userName: name,
+      phoneNumber,
+      daysAvailable,
+      userLocation,
+    };
     setButtonActive(false);
+
     try {
-      const resp = await axios.post(
-        `${import.meta.env.VITE_API_AUTH_URL}/register`,
-        registerUser
+      const Accpromise = account.create(
+        ID.unique(),
+        email,
+        registerUser.password,
+        name
       );
-      toast.success(resp.data.message);
+      Accpromise.then(
+        function (response) {
+          console.log(response);
+        },
+        function (error) {
+          console.log(error);
+        }
+      );
+
+      const promise = databases.createDocument(
+        "669355b80023d49b2370",
+        "669355fa000f8996c0ca",
+        currentUserID,
+        data
+      );
+
+      promise.then(
+        function (response) {
+          console.log("response:");
+          console.log(response);
+        },
+        function (error) {
+          console.error(error);
+        }
+      );
+
+      toast.success("Registered Successfully");
       setButtonActive(true);
       setLogin(true);
       setRegisterUser({ password: "" });
       setLoginUser({ ...loginUser, email: registerUser.email });
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(String(error));
+      console.log(error);
     } finally {
       setButtonActive(true);
     }
@@ -110,24 +147,9 @@ const Authentication = ({
     setImage(svgDataUrl);
   };
 
-  const changeImage = () => {
-    fetchImage();
-  };
-
   return (
     <>
-      <Header
-        userName={userName}
-        setUserName={setUserName}
-        userPhone={userPhone}
-        setUserPhone={setUserPhone}
-        daysAvailable={daysAvailable}
-        setDaysAvailable={setDaysAvailable}
-        timeAvailable={timeAvailable}
-        setTimeAvailable={setTimeAvailable}
-        userLocation={userLocation}
-        setUserLocation={setUserLocation}
-      />
+      <Header />
       <div className="flex justify-center items-center min-h-screen bg-gray-900">
         <div className="flex flex-col md:flex-row bg-gray-800 shadow-xl rounded-lg w-full md:w-3/4 lg:w-2/3">
           <div className="md:w-1/2">
@@ -255,4 +277,4 @@ const Authentication = ({
   );
 };
 
-export default Authentication;
+export default RagAuth;

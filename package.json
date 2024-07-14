@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "appwrite": "^14.0.1",
     "react-component-export-image": "^1.0.6",
     "react-draggable": "^4.4.6",
     "react-ga4": "^2.1.0"

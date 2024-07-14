@@ -1,63 +1,72 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Logo from "../../../assets/Logo.png";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProfileModal from "../../UserProfile/ProfileModal";
-const Header = ({
-  userName,
-  setUserName,
-  userPhone,
-  setUserPhone,
-  daysAvailable,
-  setDaysAvailable,
-  timeAvailable,
-  setTimeAvailable,
-  userLocation,
-  setUserLocation,
-}) => {
+import { ContextStore } from "../../../ContextStore";
+import { account } from "../../../../Appwrite";
+const Header = () => {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
 
-  const user = useSelector((state) => state.user.user);
+  const {
+    userName,
+    setUserName,
+    userPhone,
+    setUserPhone,
+    daysAvailable,
+    setDaysAvailable,
+    timeAvailable,
+    setTimeAvailable,
+    userLocation,
+    setUserLocation,
+    fetchData,
+    currentUserID,
+    setCurrentUserID,
+  } = useContext(ContextStore);
 
   return (
     <section className="relative">
-      <header className="px-4 py-10 w-[100%] h-8 flex justify-between bg-[#1f1e24] items-center ">
+      <header className="px-12 py-10 overflow-hidden w-screen h-8 flex bg-[#1f1e24] items-center ">
         <img src={Logo} alt="Logo" className="w-16 h-16 " />
         <h4 className="font-extrabold text-[22px] text-white ml-4">
-          AI<span className="text-blue-500">Media</span>
+          Scrap<span className="text-orange-500">It</span>
         </h4>
 
-        {!user.details._id ? (
-          <button
-            className="text-white bg-sky-500 hover:shadow-lg hover:border hover:border-white rounded-3xl btn ml-auto"
-            onClick={() => navigate("/authentication")}
-          >
-            SignUp
-          </button>
+        {!userName ? (
+          <>
+            <button
+              className="text-gray-200 hover:shadow-lg hover:text-white rounded btn ml-auto"
+              onClick={() => navigate("/register-as-a-user")}
+            >
+              Register as a User
+            </button>
+            <button
+              className="text-gray-200 hover:shadow-lg hover:text-white rounded btn ml-auto"
+              onClick={() => navigate("/register-as-a-rag-picker")}
+            >
+              Register as a RagPicker
+            </button>
+          </>
         ) : (
-          <button
-            className="text-white bg-sky-500 hover:shadow-lg hover:border hover:border-white rounded-3xl btn ml-auto"
-            onClick={() => setShow(!show)}
-          >
-            {user.details.username}
-          </button>
+          <>
+            <button
+              className="text-white hover:shadow-lg hover:border hover:border-white rounded-3xl btn ml-auto"
+              onClick={() => setShow(!show)}
+            >
+              Dashboard
+            </button>
+            <button
+              className="text-white bg-sky-500 hover:shadow-lg hover:border hover:border-white rounded-3xl btn ml-auto"
+              onClick={() => setShow(!show)}
+            >
+              {userName}
+            </button>
+          </>
         )}
       </header>
-      {show && (
-        <ProfileModal
-          userName={userName}
-          setUserName={setUserName}
-          userPhone={userPhone}
-          setUserPhone={setUserPhone}
-          daysAvailable={daysAvailable}
-          setDaysAvailable={setDaysAvailable}
-          timeAvailable={timeAvailable}
-          setTimeAvailable={setTimeAvailable}
-          userLocation={userLocation}
-          setUserLocation={setUserLocation}
-        />
-      )}
+
+      {show && <ProfileModal />}
     </section>
   );
 };

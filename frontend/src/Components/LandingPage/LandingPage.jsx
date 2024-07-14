@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 
 import Hero from "./Hero/Hero";
 import Features from "./Features/Features";

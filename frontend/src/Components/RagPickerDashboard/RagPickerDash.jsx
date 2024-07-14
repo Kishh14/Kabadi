@@ -1,8 +1,8 @@
 import { BsWallet2 } from "react-icons/bs";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import OrderCard from "./OrderCard";
-import ProfileModal from "../UserProfile/ProfileModal";
 import Header from "../LandingPage/Header/Header";
+import { ContextStore } from "../../ContextStore";
 
 function RagPickerDash() {
   const receivedOrders = [
@@ -31,7 +31,7 @@ function RagPickerDash() {
       customerAddress: "100 Main Street, Anytown, CA 12345",
     },
     {
-      id: "002",
+      id: "003",
       wasteType: "Metal Cans",
       image:
         "https://img.freepik.com/free-photo/metal-cans-white-background_93675-132354.jpg",
@@ -43,7 +43,7 @@ function RagPickerDash() {
       customerAddress: "100 Main Street, Anytown, CA 12345",
     },
     {
-      id: "001",
+      id: "004",
       wasteType: "Papers",
       image:
         "https://th.bing.com/th/id/OIP.KuS2FI2YONdIrWOUb8tHSAHaHa?rs=1&pid=ImgDetMain",
@@ -55,7 +55,7 @@ function RagPickerDash() {
       customerAddress: "321 Brooklyn, opp BOA, NY 45712",
     },
     {
-      id: "002",
+      id: "005",
       wasteType: "Metal Cans",
       image:
         "https://img.freepik.com/free-photo/metal-cans-white-background_93675-132354.jpg",
@@ -67,7 +67,7 @@ function RagPickerDash() {
       customerAddress: "100 Main Street, Anytown, CA 12345",
     },
     {
-      id: "002",
+      id: "006",
       wasteType: "Metal Cans",
       image:
         "https://img.freepik.com/free-photo/metal-cans-white-background_93675-132354.jpg",
@@ -80,6 +80,16 @@ function RagPickerDash() {
     },
   ];
 
+  const { currentUserID } = useContext(ContextStore);
+
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
+
+  const acceptOrder = () => {
+    console.log(currentUserID);
+  };
+
   return (
     <>
       <Header />
@@ -87,6 +97,7 @@ function RagPickerDash() {
         <div className="px-32 flex flex-col items-center my-14">
           <h1 className="" style={{ fontSize: "29px" }}>
             Hello, <span className="text-blue-500">RagPicker</span> 👋🏻
+            {currentUserID}
           </h1>
           <p className="mt-1 text-gray-500">Start you day with a smile...</p>
         </div>
@@ -108,6 +119,7 @@ function RagPickerDash() {
                     customerName={order.customerName}
                     customerPhone={order.customerPhone}
                     customerAddress={order.customerAddress}
+                    acceptOrder={acceptOrder}
                   />
                 );
               })}
@@ -156,16 +168,6 @@ function RagPickerDash() {
             </div>
           </div>
         </section>
-
-        {/* Profile */}
-        {/* <section className="px-20 my-16 pb-20">
-        <div className="my-4">
-          <h3 className="">Profile</h3>
-          <div className="flex items-center justify-center gap-12 border-1 border-gray-500 mt-4 p-3 rounded ps-5">
-
-          </div>
-        </div>
-      </section> */}
       </section>
     </>
   );
