@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import Logo from "../../../assets/Logo.png";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import ProfileModal from "../../UserProfile/ProfileModal";
 import { ContextStore } from "../../../ContextStore";
 import { account } from "../../../../Appwrite";
@@ -24,6 +23,20 @@ const Header = () => {
     currentUserID,
     setCurrentUserID,
   } = useContext(ContextStore);
+
+  useEffect(() => {
+    const getData = account.get();
+    getData.then(
+      function (response) {
+        console.log(response);
+        setUserName(response.name);
+        setCurrentUserID(response.$id);
+      },
+      function (error) {
+        console.error(error);
+      }
+    );
+  }, []);
 
   return (
     <section className="relative">

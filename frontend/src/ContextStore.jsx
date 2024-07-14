@@ -6,7 +6,7 @@ const ContextStore = createContext();
 
 const ThemeProvider = ({ children }) => {
   const [userName, setUserName] = useState("");
-  const [userPhone, setUserPhone] = useState("");
+  const [userPhone, setUserPhone] = useState(null);
   const [daysAvailable, setDaysAvailable] = useState([]);
   const [data, setData] = useState([]);
   const [timeAvailable, setTimeAvailable] = useState([]);
@@ -22,7 +22,24 @@ const ThemeProvider = ({ children }) => {
       function (response) {
         console.log(response);
         setUserName(response.name);
-        setCurrentUserID(response.$id)
+        setCurrentUserID(response.$id);
+
+        // Fetching Acc docs
+        const listUserDocsProm = databases.getDocument(
+          "669355b80023d49b2370",
+          "669355fa000f8996c0ca",
+          response.$id
+        );
+        listUserDocsProm.then(
+          function (response) {
+            console.log(response);
+            setUserPhone(response.phoneNumber);
+            setUserLocation(response.userLocation);
+          },
+          function (error) {
+            console.error(error);
+          }
+        );
       },
       function (error) {
         console.error(error);
@@ -31,41 +48,7 @@ const ThemeProvider = ({ children }) => {
   }, [userName]);
 
   // const fetchData = () => {
-  //   const listUserDocsProm = databases.listDocuments(
-  //     "669355b80023d49b2370",
-  //     "669355fa000f8996c0ca"
-  //   );
-  //   listUserDocsProm.then(
-  //     function (response) {
-  //       console.log(response.documents);
 
-  //       const currentUser = response.documents.filter(
-  //         (user) => userName === user.userName
-  //       );
-  //       // setCurrentUserID(currentUser[0].$id);
-  //       console.log(currentUser[0].$id);
-  //       const resultProm = databases.getDocument(
-  //         "669355b80023d49b2370",
-  //         "669355fa000f8996c0ca",
-  //         currentUser[0].$id
-  //       );
-  //       resultProm.then(
-  //         function (response) {
-  //           // setDataFetched(true);
-  //           console.log(response);
-  //           setUserPhone(response.phoneNumber);
-  //           setDaysAvailable(response.daysAvailable);
-  //           setUserLocation(response.userLocation);
-  //         },
-  //         function (err) {
-  //           console.log(err);
-  //         }
-  //       );
-  //     },
-  //     function (error) {
-  //       console.error(error);
-  //     }
-  //   );
   // };
 
   return (

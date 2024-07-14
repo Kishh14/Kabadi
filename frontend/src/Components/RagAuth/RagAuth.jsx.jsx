@@ -21,13 +21,33 @@ const RagAuth = () => {
   const [image, setImage] = useState();
   const navigate = useNavigate();
 
-  const { phoneNumber, daysAvailable, userLocation, currentUserID } =
-    useContext(ContextStore);
+  const {
+    userName,
+    phoneNumber,
+    daysAvailable,
+    userLocation,
+    currentUserID,
+    setCurrentUserID,
+  } = useContext(ContextStore);
   let email = String(registerUser.email);
   let name = String(registerUser.username);
 
   useEffect(() => {
     fetchImage();
+  }, []);
+
+  // Getting the account details if user is logged in
+  useEffect(() => {
+    const getData = account.get();
+    getData.then(
+      function (response) {
+        console.log(response);
+        setCurrentUserID(response.$id);
+      },
+      function (error) {
+        console.error(error);
+      }
+    );
   }, []);
 
   const handleLogin = async (e) => {
@@ -42,12 +62,11 @@ const RagAuth = () => {
 
       promise.then(
         function (response) {
-          console.log(response);
           toast.success("Logged In");
           navigate("/ragPickerCentral");
         },
         function (error) {
-          console.log(error); // Failure
+          console.log(error);
         }
       );
     } catch (error) {
@@ -79,35 +98,12 @@ const RagAuth = () => {
       );
       Accpromise.then(
         function (response) {
-          console.log(response);
+          console.log("Acc created" + response);
         },
         function (error) {
           console.log(error);
         }
       );
-
-      const promise = databases.createDocument(
-        "669355b80023d49b2370",
-        "669355fa000f8996c0ca",
-        currentUserID,
-        data
-      );
-
-      promise.then(
-        function (response) {
-          console.log("response:");
-          console.log(response);
-        },
-        function (error) {
-          console.error(error);
-        }
-      );
-
-      toast.success("Registered Successfully");
-      setButtonActive(true);
-      setLogin(true);
-      setRegisterUser({ password: "" });
-      setLoginUser({ ...loginUser, email: registerUser.email });
     } catch (error) {
       toast.error(String(error));
       console.log(error);
