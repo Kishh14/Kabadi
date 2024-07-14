@@ -9,6 +9,7 @@ import { databases } from "../../../Appwrite";
 function UserDashboard() {
   const [date, setDate] = useState();
   const [time, setTime] = useState();
+  const [location, setLocation] = useState();
   const [wasteType, setWasteType] = useState();
   const [usersData, setUsersData] = useState([]);
   const { currentUserID } = useContext(ContextStore);
@@ -118,72 +119,56 @@ function UserDashboard() {
       <p className="text-white">{hereItIs[0]?.userLocation}</p>
       <section className="bg-black text-white h-screen w-full">
         {/* Booking */}
-        <section className="px-20 my-8">
+        <section className="px-6 md:px-20 my-8">
           <div className="my-4">
-            <h3 className="">Choose Slot</h3>
-            <div className="flex items-center gap-12 border-1 border-gray-500 mt-4 p-3 rounded ps-5">
-              {/* Date */}
-              <div className="">
-                <div className="cursor-pointer w-36 bg-white rounded text-black p-1">
+            <h3>Choose Slot</h3>
+            <div className="flex flex-col md:flex-row items-center gap-4 md:gap-12 border border-gray-500 mt-4 p-3 rounded-lg">
+              <div className="w-full md:w-auto">
+                <div className="cursor-pointer w-full md:w-36 bg-white rounded text-black p-1">
                   <input
                     type="date"
-                    name=""
-                    className="border-0 outline-none"
-                    id=""
+                    className="border-0 outline-none w-full"
                     onChange={(e) => setDate(e.target.value)}
                   />
                 </div>
               </div>
 
-              {/* Time */}
-              <div className="">
-                <div className="flex items-center gap-2">
-                  {timeSlots.map((time, index) => {
-                    return (
-                      <TimeBox
-                        time={time}
-                        key={index}
-                        handleTimeChange={handleTimeChange}
-                      />
-                    );
-                  })}
-                </div>
+              <div className="w-full md:w-auto flex items-center gap-2">
+                {timeSlots.map((time, index) => (
+                  <TimeBox
+                    time={time}
+                    key={index}
+                    handleTimeChange={handleTimeChange}
+                  />
+                ))}
               </div>
             </div>
           </div>
 
           {/* Waste type */}
           <div className="my-4">
-            <h3 className="">Waste type</h3>
-            <div className="border-1 border-gray-500 p-3 mt-4 rounded ps-5">
-              {/* Waste Cards */}
+            <h3>Waste Type</h3>
+            <div className="border border-gray-500 p-3 mt-4 rounded-lg">
               <div className="flex gap-4 flex-wrap overflow-x-auto h-[370px]">
-                {wasteData.map((waste, index) => {
-                  return (
-                    <WasteCard
-                      key={index}
-                      image={waste.image}
-                      name={waste.name}
-                      desc={waste.desc}
-                      price={waste.price}
-                      setWasteType={setWasteType}
-                    />
-                  );
-                })}
+                {wasteData.map((waste, index) => (
+                  <WasteCard
+                    key={index}
+                    image={waste.image}
+                    name={waste.name}
+                    desc={waste.desc}
+                    price={waste.price}
+                    setWasteType={setWasteType}
+                  />
+                ))}
               </div>
             </div>
           </div>
 
           <div className="my-4">
-            <h3 className="">Confirm Address</h3>
-            <div className="border-1 border-gray-500 p-3 mt-4 rounded ps-5">
+            <h3>Confirm Address</h3>
+            <div className="border border-gray-500 p-3 mt-4 rounded-lg">
               <div className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  className="cursor-pointer"
-                  name=""
-                  id=""
-                />
+                <input type="checkbox" className="cursor-pointer" />
                 <p>321 Brooklyn bridge, opp BOA, NY 45712</p>
               </div>
               <span className="text-gray-400">
@@ -192,29 +177,27 @@ function UserDashboard() {
             </div>
           </div>
 
-          <button className="bookNow-btn mt-5 block mx-auto w-[300px]">
+          <button className="bookNow-btn mt-5  block mx-auto w-[300px] py-2 bg-green-500 rounded-lg text-black hover:bg-green-600 transition">
             Book Now
           </button>
         </section>
 
         {/* Orders */}
-        <section className="px-20 my-20 pb-[50px]">
+        <section className="px-6 md:px-20 my-20 pb-[50px]">
           <h3 className="text-white">My Orders</h3>
-          <div className="flex items-center gap-4 flex-wrap border-1 border-gray-500 mt-4 p-3 rounded ps-5">
-            {orderData.map((order, index) => {
-              return (
-                <OrderCard
-                  key={index}
-                  name={order.name}
-                  image={order.image}
-                  weight={order.weight}
-                  price={order.price}
-                  wasteData={wasteData}
-                  status={order.status}
-                  deliveryCharges={order.deliveryCharges}
-                />
-              );
-            })}
+          <div className="flex flex-col md:flex-row items-center gap-4 flex-wrap border border-gray-500 mt-4 p-3 rounded-lg">
+            {orderData.map((order, index) => (
+              <OrderCard
+                key={index}
+                name={order.name}
+                image={order.image}
+                weight={order.weight}
+                price={order.price}
+                wasteData={wasteData}
+                status={order.status}
+                deliveryCharges={order.deliveryCharges}
+              />
+            ))}
           </div>
         </section>
       </section>
@@ -223,3 +206,4 @@ function UserDashboard() {
 }
 
 export default UserDashboard;
+

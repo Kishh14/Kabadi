@@ -18,28 +18,76 @@ function RagPickerDash() {
       customerPhone: "+9876543214",
       customerAddress: "321 Brooklyn, opp BOA, NY 45712",
     },
+    {
+      id: "002",
+      wasteType: "Metal Cans",
+      image:
+        "https://img.freepik.com/free-photo/metal-cans-white-background_93675-132354.jpg",
+      date: "2024-07-12",
+      time: "10:30 PM",
+      status: "Received",
+      customerName: "Jane Smith",
+      customerPhone: "+9876543210",
+      customerAddress: "100 Main Street, Anytown, CA 12345",
+    },
+    {
+      id: "003",
+      wasteType: "Metal Cans",
+      image:
+        "https://img.freepik.com/free-photo/metal-cans-white-background_93675-132354.jpg",
+      date: "2024-07-12",
+      time: "10:30 PM",
+      status: "Completed",
+      customerName: "Jane Smith",
+      customerPhone: "+9876543210",
+      customerAddress: "100 Main Street, Anytown, CA 12345",
+    },
+    {
+      id: "004",
+      wasteType: "Papers",
+      image:
+        "https://th.bing.com/th/id/OIP.KuS2FI2YONdIrWOUb8tHSAHaHa?rs=1&pid=ImgDetMain",
+      date: "2024-01-01",
+      time: "12-04 AM",
+      status: "Received",
+      customerName: "Jhon",
+      customerPhone: "+9876543214",
+      customerAddress: "321 Brooklyn, opp BOA, NY 45712",
+    },
+    {
+      id: "005",
+      wasteType: "Metal Cans",
+      image:
+        "https://img.freepik.com/free-photo/metal-cans-white-background_93675-132354.jpg",
+      date: "2024-07-12",
+      time: "10:30 PM",
+      status: "Received",
+      customerName: "Jane Smith",
+      customerPhone: "+9876543210",
+      customerAddress: "100 Main Street, Anytown, CA 12345",
+    },
+    {
+      id: "006",
+      wasteType: "Metal Cans",
+      image:
+        "https://img.freepik.com/free-photo/metal-cans-white-background_93675-132354.jpg",
+      date: "2024-07-12",
+      time: "10:30 PM",
+      status: "Completed",
+      customerName: "Jane Smith",
+      customerPhone: "+9876543210",
+      customerAddress: "100 Main Street, Anytown, CA 12345",
+    },
   ];
 
   const { currentUserID } = useContext(ContextStore);
 
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
+
   const acceptOrder = () => {
     console.log(currentUserID);
-  };
-
-  const rejectOrder = (orderID) => {
-    let con = confirm(
-      `Are you sure you wanna reject the order with the ID ${orderID} ?`
-    );
-    if (con) {
-      receivedOrders.filter((order) => {
-        if (order.id === orderID) {
-          return (order.status = "Rejected");
-        }
-      });
-      alert("Order rejected!");
-    } else {
-      alert("Thank you for your cooperation!");
-    }
   };
 
   return (
@@ -49,6 +97,7 @@ function RagPickerDash() {
         <div className="px-32 flex flex-col items-center my-14">
           <h1 className="" style={{ fontSize: "29px" }}>
             Hello, <span className="text-blue-500">RagPicker</span> 👋🏻
+            {currentUserID}
           </h1>
           <p className="mt-1 text-gray-500">Start you day with a smile...</p>
         </div>
@@ -62,7 +111,6 @@ function RagPickerDash() {
                 return (
                   <OrderCard
                     key={order.id}
-                    orderId={order.id}
                     status={order.status}
                     image={order.image}
                     wasteType={order.wasteType}
@@ -72,7 +120,6 @@ function RagPickerDash() {
                     customerPhone={order.customerPhone}
                     customerAddress={order.customerAddress}
                     acceptOrder={acceptOrder}
-                    rejectOrder={rejectOrder}
                   />
                 );
               })}
@@ -81,7 +128,7 @@ function RagPickerDash() {
         </section>
 
         {/* Earnings */}
-        <section className="px-20 my-16 pb-20">
+        <section className="px-20 my-16">
           <div className="my-4">
             <h3 className="">Your Earnings</h3>
             <div className="flex items-center justify-center gap-12 border-1 border-gray-500 mt-4 p-3 rounded ps-5">
@@ -127,3 +174,4 @@ function RagPickerDash() {
 }
 
 export default RagPickerDash;
+
