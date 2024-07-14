@@ -7,22 +7,20 @@ const ThemeProvider = ({ children }) => {
   const [userName, setUserName] = useState("");
   const [userPhone, setUserPhone] = useState(null);
   const [daysAvailable, setDaysAvailable] = useState([]);
-  const [data, setData] = useState([]);
+  const [userData, setUserData] = useState([]);
   const [timeAvailable, setTimeAvailable] = useState([]);
   const [userLocation, setUserLocation] = useState("");
   const [userCity, setUserCity] = useState("");
   const [userPincode, setUserPincode] = useState("");
   const [currentUserAccType, setCurrentUserAccType] = useState("");
 
-  const [currentUserID, setCurrentUserID] = useState();
-  const [dataFetched, setDataFetched] = useState(false);
+  const [currentUserID, setCurrentUserID] = useState("");
 
   // Getting the account details if user is logged in
   useEffect(() => {
     const getData = account.get();
     getData.then(
       function (response) {
-        console.log(response);
         setUserName(response.name);
         setCurrentUserID(response.$id);
 
@@ -34,7 +32,6 @@ const ThemeProvider = ({ children }) => {
         );
         listUserDocsProm.then(
           function (response) {
-            console.log(response);
             setUserPhone(response.phoneNumber);
             setUserLocation(response.userLocation);
             setCurrentUserAccType(response.accountType);
@@ -46,6 +43,19 @@ const ThemeProvider = ({ children }) => {
       },
       function (error) {
         console.error(error);
+      }
+    );
+
+    const listDoc = databases.listDocuments(
+      "669355b80023d49b2370",
+      "669355fa000f8996c0ca"
+    );
+    listDoc.then(
+      function (response) {
+        setUserData(response.documents);
+      },
+      function (error) {
+        console.log(error);
       }
     );
   }, [userName]);
@@ -67,7 +77,7 @@ const ThemeProvider = ({ children }) => {
         setUserCity,
         userPincode,
         setUserPincode,
-        // fetchData,
+        userData,
         currentUserID,
         setCurrentUserID,
         currentUserAccType,

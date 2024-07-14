@@ -29,7 +29,6 @@ const Header = () => {
     const getData = account.get();
     getData.then(
       function (response) {
-        console.log(response);
         setUserName(response.name);
         setCurrentUserID(response.$id);
       },

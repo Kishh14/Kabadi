@@ -1,11 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { login_success } from "../../Redux/userSlice";
 import Header from "../LandingPage/Header/Header";
-import { account, databases, ID } from "../../../Appwrite";
+import { account, ID } from "../../../Appwrite";
 import { ContextStore } from "../../ContextStore";
 
 const RagAuth = () => {
@@ -18,16 +15,11 @@ const RagAuth = () => {
   });
   const [loginUser, setLoginUser] = useState({ email: "", password: "" });
   const [buttonActive, setButtonActive] = useState(true);
-  const [image, setImage] = useState();
   const navigate = useNavigate();
 
   const { setCurrentUserID } = useContext(ContextStore);
   let email = String(registerUser.email);
   let name = String(registerUser.username);
-
-  useEffect(() => {
-    fetchImage();
-  }, []);
 
   // Getting the account details if user is logged in
   useEffect(() => {
@@ -103,44 +95,12 @@ const RagAuth = () => {
     }
   };
 
-  const names = [
-    "max",
-    "maria",
-    "louis",
-    "david",
-    "lisa",
-    "hina",
-    "adam",
-    "thomas",
-    "joseph",
-    "robert",
-    "john",
-    "sona",
-    "modi",
-    "neet",
-  ];
-  let randomNumber = Math.floor(Math.random() * names.length);
-
-  const fetchImage = async () => {
-    setRegisterUser({
-      ...registerUser,
-      image: `https://api.multiavatar.com/${names[randomNumber]}.svg`,
-    });
-    const response = await axios.get(
-      `https://api.multiavatar.com/${names[randomNumber]}.svg`
-    );
-    const svgData = response.data;
-    const svgDataUrl = `data:image/svg+xml;utf8,${encodeURIComponent(svgData)}`;
-    setImage(svgDataUrl);
-  };
-
   return (
     <>
       <Header />
       <div className="flex justify-center items-center min-h-screen bg-gray-900">
         <div className="flex flex-col md:flex-row bg-gray-800 shadow-xl rounded-lg w-full md:w-3/4 lg:w-2/3">
           <div className="md:w-1/2">
-            {/* <img src={sideImg} alt="People" className="w-full h-full object-cover rounded-t-lg md:rounded-l-lg md:rounded-t-none" /> */}
             <img
               src="https://cdn.dribbble.com/users/1332227/screenshots/4833164/green-initiatives-plastic---1920x1080.gif"
               alt="People"

@@ -1,13 +1,18 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import WasteCard from "./WasteCard";
 import OrderCard from "./OrderCard";
 import TimeBox from "./TimeBox";
 import Header from "../LandingPage/Header/Header";
+import { ContextStore } from "../../ContextStore";
+import { databases } from "../../../Appwrite";
 
 function UserDashboard() {
   const [date, setDate] = useState();
   const [time, setTime] = useState();
   const [wasteType, setWasteType] = useState();
+  const [usersData, setUsersData] = useState([]);
+  const { currentUserID } = useContext(ContextStore);
+  const [hereItIs, setHereItIs] = useState("");
 
   const wasteData = [
     {
@@ -76,9 +81,41 @@ function UserDashboard() {
     setTime(time);
   };
 
+  const handleUserFetch = () => {
+    const listDoc = databases.listDocuments(
+      "669355b80023d49b2370",
+      "669355fa000f8996c0ca"
+    );
+    listDoc.then(
+      function (response) {
+        setUsersData(response.documents);
+      },
+      function (error) {
+        console.log(error);
+      }
+    );
+  };
+
+  useEffect(() => {
+    handleUserFetch();
+    handleUserFetch();
+    console.log(usersData);
+
+    const checkthis = usersData.filter((UsData) => {
+      if (UsData.$id === currentUserID) {
+        return UsData;
+      }
+    });
+
+    console.log(checkthis);
+    setHereItIs(checkthis);
+  }, []);
+
   return (
     <>
       <Header />
+
+      <p className="text-white">{hereItIs[0]?.userLocation}</p>
       <section className="bg-black text-white h-screen w-full">
         {/* Booking */}
         <section className="px-20 my-8">

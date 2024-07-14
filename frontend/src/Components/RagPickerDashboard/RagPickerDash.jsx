@@ -1,5 +1,5 @@
 import { BsWallet2 } from "react-icons/bs";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import OrderCard from "./OrderCard";
 import Header from "../LandingPage/Header/Header";
 import { ContextStore } from "../../ContextStore";

@@ -1,12 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
-import Button from "./Button";
-import { account, databases, ID } from "../../../Appwrite";
+import React, { useContext } from "react";
+import { databases } from "../../../Appwrite";
 import { ContextStore } from "../../ContextStore";
 import Header from "../LandingPage/Header/Header";
 import { useNavigate } from "react-router-dom";
 
 function UserProfile() {
-  const days = ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
+  // const days = ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
   // const time = ["08-12 AM", "12-04 AM", "04-08 AM"];
 
   const navigate = useNavigate();
@@ -17,7 +16,6 @@ function UserProfile() {
     userPhone,
     setUserPhone,
     daysAvailable,
-    setDaysAvailable,
     userLocation,
     userCity,
     setUserCity,
