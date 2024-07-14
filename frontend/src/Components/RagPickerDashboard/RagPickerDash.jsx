@@ -196,6 +196,7 @@ function RagPickerDash() {
       customerPhone: "+9876543214",
       customerAddress: "321 Brooklyn, opp BOA, NY 45712",
     },
+<<<<<<< HEAD
     {
       id: "002",
       wasteType: "Metal Cans",
@@ -256,12 +257,30 @@ function RagPickerDash() {
       customerPhone: "+9876543210",
       customerAddress: "100 Main Street, Anytown, CA 12345",
     },
+=======
+>>>>>>> 7006d4103baab2902cdb503998582fe228539289
   ];
 
   const { currentUserID } = useContext(ContextStore);
 
   const acceptOrder = () => {
     console.log(currentUserID);
+  };
+
+  const rejectOrder = (orderID) => {
+    let con = confirm(
+      `Are you sure you wanna reject the order with the ID ${orderID} ?`
+    );
+    if (con) {
+      receivedOrders.filter((order) => {
+        if (order.id === orderID) {
+          return (order.status = "Rejected");
+        }
+      });
+      alert("Order rejected!");
+    } else {
+      alert("Thank you for your cooperation!");
+    }
   };
 
   return (
@@ -275,6 +294,7 @@ function RagPickerDash() {
           <p className="mt-2 text-gray-400">Start your day with a smile...</p>
         </div>
 
+<<<<<<< HEAD
         {/* Orders Section */}
         <section className="px-8">
           <div className="my-8">
@@ -294,10 +314,36 @@ function RagPickerDash() {
                   acceptOrder={acceptOrder}
                 />
               ))}
+=======
+        {/* Appointments aka orders */}
+        <section className="px-20 my-8">
+          <div className="my-4">
+            <h3 className="">All Orders</h3>
+            <div className="flex items-center flex-wrap gap-12 border-1 border-gray-500 mt-4 p-3 rounded ps-5">
+              {receivedOrders.map((order) => {
+                return (
+                  <OrderCard
+                    key={order.id}
+                    orderId={order.id}
+                    status={order.status}
+                    image={order.image}
+                    wasteType={order.wasteType}
+                    date={order.date}
+                    time={order.time}
+                    customerName={order.customerName}
+                    customerPhone={order.customerPhone}
+                    customerAddress={order.customerAddress}
+                    acceptOrder={acceptOrder}
+                    rejectOrder={rejectOrder}
+                  />
+                );
+              })}
+>>>>>>> 7006d4103baab2902cdb503998582fe228539289
             </div>
           </div>
         </section>
 
+<<<<<<< HEAD
         {/* Earnings Section */}
         <section className="px-8 my-16">
           <h3 className="text-2xl font-bold mb-4">Your Earnings</h3>
@@ -305,6 +351,47 @@ function RagPickerDash() {
             <EarningCard title="This Month" amount="₹1000" />
             <EarningCard title="This Week" amount="₹400" />
             <EarningCard title="All Time" amount="₹2000" />
+=======
+        {/* Earnings */}
+        <section className="px-20 my-16 pb-20">
+          <div className="my-4">
+            <h3 className="">Your Earnings</h3>
+            <div className="flex items-center justify-center gap-12 border-1 border-gray-500 mt-4 p-3 rounded ps-5">
+              <div className="bg-green-200 rounded h-[170px] flex flex-col justify-center border-1 border-green-700 py-4 w-[400px] text-black">
+                <div className="flex items-center ms-10 gap-5">
+                  <div className="p-4 flex items-center justify-center rounded-full bg-green-600">
+                    <BsWallet2 size={50} />
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <p className="text-lg">This Month</p>
+                    <p className="text-2xl font-semibold">₹1000</p>
+                  </div>
+                </div>
+              </div>
+              <div className="bg-green-200 rounded h-[170px] flex flex-col justify-center border-1 border-green-700 py-4 w-[400px] text-black">
+                <div className="flex items-center ms-10 gap-5">
+                  <div className="p-4 flex items-center justify-center rounded-full bg-green-600">
+                    <BsWallet2 size={50} />
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <p className="text-lg">This Week</p>
+                    <p className="text-2xl font-semibold">₹400</p>
+                  </div>
+                </div>
+              </div>
+              <div className="bg-green-200 rounded h-[170px] flex flex-col justify-center border-1 border-green-700 py-4 w-[400px] text-black">
+                <div className="flex items-center ms-10 gap-5">
+                  <div className="p-4 flex items-center justify-center rounded-full bg-green-600">
+                    <BsWallet2 size={50} />
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <p className="text-lg">All</p>
+                    <p className="text-2xl font-semibold">₹2000</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+>>>>>>> 7006d4103baab2902cdb503998582fe228539289
           </div>
         </section>
       </section>

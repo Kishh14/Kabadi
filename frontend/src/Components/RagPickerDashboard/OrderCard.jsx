@@ -109,6 +109,7 @@ import { CgTimelapse } from "react-icons/cg";
 import { MdDateRange } from "react-icons/md";
 
 function OrderCard({
+  orderId,
   status,
   image,
   wasteType,
@@ -118,6 +119,7 @@ function OrderCard({
   customerPhone,
   customerAddress,
   acceptOrder,
+  rejectOrder,
 }) {
   return (
     <div className="w-[380px] h-[460px] shadow-lg bg-gray-900 rounded-lg overflow-hidden">
@@ -167,6 +169,7 @@ function OrderCard({
           <p className="ml-2 text-gray-300 font-semibold">{customerAddress}</p>
         </div>
       </div>
+<<<<<<< HEAD
 
       {/* Action Buttons */}
       <div className="flex justify-center mt-4">
@@ -186,6 +189,32 @@ function OrderCard({
           <p className="text-center text-gray-300">
             Collected 5kg for{" "}
             <span className="border-b border-green-500 font-bold">₹400</span>{" "}
+=======
+      <div className="p-2 shadow bg-gray-800 rounded mt-3"></div>
+      {status !== "Completed" ? (
+        <div className="flex justify-center gap-4 my-3">
+          <button
+            onClick={acceptOrder}
+            className="btn text-white border-1 pb-2 border-green-900 hover:bg-green-900 px-3"
+          >
+            Accept
+          </button>
+          <button
+            onClick={() => rejectOrder(orderId)}
+            className="btn text-white border-1 pb-2 border-red-900 hover:bg-red-900 px-3"
+          >
+            Reject
+          </button>
+        </div>
+      ) : (
+        <div className="flex justify-center gap-4 my-3">
+          <p className="">
+            Collected 5kg for
+            <span className="border-b font-bold border-green-500">
+              {" "}
+              ₹400
+            </span>{" "}
+>>>>>>> 7006d4103baab2902cdb503998582fe228539289
             💵
           </p>
         )}

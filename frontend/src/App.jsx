@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "./Components/LandingPage/LandingPage";
-import { useSelector } from "react-redux";
 import RagAuth from "./Components/RagAuth/RagAuth.jsx";
 import UserAuth from "./Components/UserAuth/UserAuth.jsx";
 import RagPickerDash from "./Components/RagPickerDashboard/RagPickerDash.jsx";
 import UserDashboard from "./Components/UserDashboard/UserDashboard.jsx";
-import ProfileModal from "./Components/UserProfile/ProfileModal.jsx";
+import UserProfile from "./Components/UserProfile/UserProfile.jsx";
 
 function App() {
   return (
@@ -19,7 +18,7 @@ function App() {
             <Route path="/register-as-a-user" element={<UserAuth />} />
             <Route path="/ragPickerCentral" element={<RagPickerDash />} />
             <Route path="/userCentral" element={<UserDashboard />} />
-            <Route path="/profile" element={<ProfileModal />} />
+            <Route path="/profile" element={<UserProfile />} />
           </Routes>
         </div>
       </main>
