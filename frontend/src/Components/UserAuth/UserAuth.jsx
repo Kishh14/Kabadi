@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login_success } from "../../Redux/userSlice";
 import Header from "../LandingPage/Header/Header";
+import { account, ID } from "../../../Appwrite";
+import { ContextStore } from "../../ContextStore";
 
 const UserAuth = () => {
   const [login, setLogin] = useState(false);
@@ -18,31 +20,51 @@ const UserAuth = () => {
   const [buttonActive, setButtonActive] = useState(true);
   const [image, setImage] = useState();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+
+  const { setCurrentUserID } = useContext(ContextStore);
+  let email = String(registerUser.email);
+  let name = String(registerUser.username);
 
   useEffect(() => {
     fetchImage();
+  }, []);
+
+  // Getting the account details if user is logged in
+  useEffect(() => {
+    const getData = account.get();
+    getData.then(
+      function (response) {
+        console.log(response);
+        setCurrentUserID(response.$id);
+      },
+      function (error) {
+        console.error(error);
+      }
+    );
   }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setButtonActive(false);
     try {
-      const resp = await axios.post(
-        `${import.meta.env.VITE_API_AUTH_URL}/login`,
-        loginUser
+      const promise = account.createEmailPasswordSession(
+        loginUser.email,
+        loginUser.password
       );
-      toast.success(resp.data.message);
-      dispatch(
-        login_success({ token: resp.data.token, details: resp.data.user })
+
+      promise.then(
+        function (response) {
+          toast.success("Logged In");
+          navigate("/profile");
+        },
+        function (error) {
+          console.log(error);
+        }
       );
-      navigate("/userCentral");
-      sessionStorage.setItem("username", resp.data.user.username);
-      sessionStorage.setItem("email", resp.data.user.email);
     } catch (error) {
       console.log(error);
       setButtonActive(true);
-      toast.error(error.response.data.message);
+      toast.error(String(error));
     } finally {
       setButtonActive(true);
     }
@@ -52,17 +74,27 @@ const UserAuth = () => {
     e.preventDefault();
     setButtonActive(false);
     try {
-      const resp = await axios.post(
-        `${import.meta.env.VITE_API_AUTH_URL}/register`,
-        registerUser
+      const Accpromise = account.create(
+        ID.unique(),
+        email,
+        registerUser.password,
+        name
       );
-      toast.success(resp.data.message);
-      setButtonActive(true);
-      setLogin(true);
-      setRegisterUser({ password: "" });
-      setLoginUser({ ...loginUser, email: registerUser.email });
+      Accpromise.then(
+        function (response) {
+          console.log(response);
+          toast.success("Acc created");
+          setButtonActive(true);
+          setLogin(true);
+          setRegisterUser({ password: "" });
+          setLoginUser({ ...loginUser, email: registerUser.email });
+        },
+        function (error) {
+          console.log(error);
+        }
+      );
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(String(error));
     } finally {
       setButtonActive(true);
     }

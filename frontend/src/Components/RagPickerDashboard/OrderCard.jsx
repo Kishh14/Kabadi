@@ -6,6 +6,7 @@ import { CgTimelapse } from "react-icons/cg";
 import { MdDateRange } from "react-icons/md";
 
 function OrderCard({
+  orderId,
   status,
   image,
   wasteType,
@@ -15,6 +16,7 @@ function OrderCard({
   customerPhone,
   customerAddress,
   acceptOrder,
+  rejectOrder,
 }) {
   return (
     <div
@@ -80,7 +82,10 @@ function OrderCard({
           >
             Accept
           </button>
-          <button className="btn text-white border-1 pb-2 border-red-900 hover:bg-red-900 px-3">
+          <button
+            onClick={() => rejectOrder(orderId)}
+            className="btn text-white border-1 pb-2 border-red-900 hover:bg-red-900 px-3"
+          >
             Reject
           </button>
         </div>

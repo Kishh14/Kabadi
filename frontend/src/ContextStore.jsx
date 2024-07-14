@@ -1,5 +1,4 @@
 import { createContext, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { account, databases } from "../Appwrite";
 
 const ContextStore = createContext();
@@ -11,6 +10,9 @@ const ThemeProvider = ({ children }) => {
   const [data, setData] = useState([]);
   const [timeAvailable, setTimeAvailable] = useState([]);
   const [userLocation, setUserLocation] = useState("");
+  const [userCity, setUserCity] = useState("");
+  const [userPincode, setUserPincode] = useState("");
+  const [currentUserAccType, setCurrentUserAccType] = useState("");
 
   const [currentUserID, setCurrentUserID] = useState();
   const [dataFetched, setDataFetched] = useState(false);
@@ -35,6 +37,7 @@ const ThemeProvider = ({ children }) => {
             console.log(response);
             setUserPhone(response.phoneNumber);
             setUserLocation(response.userLocation);
+            setCurrentUserAccType(response.accountType);
           },
           function (error) {
             console.error(error);
@@ -46,10 +49,6 @@ const ThemeProvider = ({ children }) => {
       }
     );
   }, [userName]);
-
-  // const fetchData = () => {
-
-  // };
 
   return (
     <ContextStore.Provider
@@ -64,9 +63,14 @@ const ThemeProvider = ({ children }) => {
         setTimeAvailable,
         userLocation,
         setUserLocation,
+        userCity,
+        setUserCity,
+        userPincode,
+        setUserPincode,
         // fetchData,
         currentUserID,
         setCurrentUserID,
+        currentUserAccType,
       }}
     >
       {children}

@@ -21,14 +21,7 @@ const RagAuth = () => {
   const [image, setImage] = useState();
   const navigate = useNavigate();
 
-  const {
-    userName,
-    phoneNumber,
-    daysAvailable,
-    userLocation,
-    currentUserID,
-    setCurrentUserID,
-  } = useContext(ContextStore);
+  const { setCurrentUserID } = useContext(ContextStore);
   let email = String(registerUser.email);
   let name = String(registerUser.username);
 
@@ -92,7 +85,11 @@ const RagAuth = () => {
       );
       Accpromise.then(
         function (response) {
-          console.log("Acc created" + response);
+          toast.success("Acc created");
+          setButtonActive(true);
+          setLogin(true);
+          setRegisterUser({ password: "" });
+          setLoginUser({ ...loginUser, email: registerUser.email });
         },
         function (error) {
           console.log(error);

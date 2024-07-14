@@ -21,6 +21,7 @@ const Header = () => {
     setUserLocation,
     fetchData,
     currentUserID,
+    currentUserAccType,
     setCurrentUserID,
   } = useContext(ContextStore);
 
@@ -41,10 +42,11 @@ const Header = () => {
   return (
     <section className="relative">
       <header className="px-12 py-10 overflow-hidden w-screen h-8 flex bg-[#1f1e24] items-center ">
-        <img src={Logo} alt="Logo" className="w-16 h-16 " />
-        <h4 className="font-extrabold text-[22px] text-white ml-4">
-          Scrap<span className="text-orange-500">It</span>
-        </h4>
+        <button className="" onClick={() => navigate("/")}>
+          <h4 className="font-extrabold text-[22px] text-white ml-4">
+            Scrap<span className="text-orange-500">It</span>
+          </h4>
+        </button>
 
         {!userName ? (
           <>
@@ -63,12 +65,21 @@ const Header = () => {
           </>
         ) : (
           <>
-            <button
-              className="text-white hover:shadow-lg hover:border hover:border-white rounded-3xl btn ml-auto"
-              onClick={() => setShow(!show)}
-            >
-              Dashboard
-            </button>
+            {currentUserAccType === "RagPicker" ? (
+              <button
+                className="text-white hover:shadow-lg hover:border hover:border-white rounded-3xl btn ml-auto"
+                onClick={() => navigate("/ragPickerCentral")}
+              >
+                Dashboard
+              </button>
+            ) : (
+              <button
+                className="text-white hover:shadow-lg hover:border hover:border-white rounded-3xl btn ml-auto"
+                onClick={() => navigate("/userCentral")}
+              >
+                User Dash
+              </button>
+            )}
             <button
               className="text-white bg-sky-500 hover:shadow-lg hover:border hover:border-white rounded-3xl btn ml-auto"
               onClick={() => setShow(!show)}
@@ -79,7 +90,7 @@ const Header = () => {
         )}
       </header>
 
-      {show && <ProfileModal />}
+      {show && currentUserAccType === "RagPicker" && <ProfileModal />}
     </section>
   );
 };

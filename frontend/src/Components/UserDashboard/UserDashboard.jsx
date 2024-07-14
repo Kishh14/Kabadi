@@ -1,5 +1,3 @@
-import { IoIosNotificationsOutline } from "react-icons/io";
-import { CiLocationOn } from "react-icons/ci";
 import React, { useState } from "react";
 import WasteCard from "./WasteCard";
 import OrderCard from "./OrderCard";
@@ -9,7 +7,6 @@ import Header from "../LandingPage/Header/Header";
 function UserDashboard() {
   const [date, setDate] = useState();
   const [time, setTime] = useState();
-  const [location, setLocation] = useState();
   const [wasteType, setWasteType] = useState();
 
   const wasteData = [
@@ -83,20 +80,6 @@ function UserDashboard() {
     <>
       <Header />
       <section className="bg-black text-white h-screen w-full">
-        {/* Nav */}
-        {/* <section className="my-4 flex items-center justify-between px-20">
-        <div className="flex items-center gap-2 cursor-pointer bg-gray-800 px-4 py-2 rounded-lg">
-          <div className="cursor-pointer">
-            <CiLocationOn size={26} />
-          </div>
-          <div className="">Select location</div>
-        </div>
-
-        <div className="cursor-pointer">
-          <IoIosNotificationsOutline size={27} />
-        </div>
-      </section> */}
-
         {/* Booking */}
         <section className="px-20 my-8">
           <div className="my-4">
