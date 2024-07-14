@@ -69,17 +69,18 @@ function ProfileModal() {
 
   const handleForm = (e) => {
     e.preventDefault();
-    const userData = {
+    let data = {
       userName,
       phoneNumber,
       daysAvailable,
       userLocation,
+      accountType: "RagPicker",
     };
     const promise = databases.createDocument(
       "669355b80023d49b2370",
       "669355fa000f8996c0ca",
       currentUserID,
-      userData
+      data
     );
 
     promise.then(

@@ -81,12 +81,6 @@ const RagAuth = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
 
-    let data = {
-      userName: name,
-      phoneNumber,
-      daysAvailable,
-      userLocation,
-    };
     setButtonActive(false);
 
     try {
